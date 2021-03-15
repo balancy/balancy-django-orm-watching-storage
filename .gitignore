@@ -1,5 +1,7 @@
 __pycache__/
 .idea/
+.replit
+config.py
 env/
 poetry.lock
 pyproject.toml

@@ -1,14 +1,9 @@
 import os
 
+from config import DB
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'HOST': '',
-        'PORT': '',
-        'NAME': '',
-        'USER': '',
-        'PASSWORD': '',
-    }
+    'default': DB,
 }
 
 INSTALLED_APPS = ['datacenter']
