@@ -1,30 +1,27 @@
 from django.shortcuts import render
-from django.utils import timezone
+from django.utils.timezone import localtime
 
 from datacenter.models import Passcard, Visit
-from datacenter.storage_information_view import get_duration, format_duration
 
 
 def passcard_info_view(request, passcode):
     passcard = Passcard.objects.filter(passcode=passcode)
-    this_passcard_all_visits = Visit.objects.filter(passcard=passcard)
-    this_passcard_all_visits_formatted = list()
+    this_passcard_visits = Visit.objects.filter(passcard=passcard)
+    this_passcard_visits_formatted = list()
 
-    for visit_by_passcard in this_passcard_all_visits:
-        localized_time_entered_at = timezone.localtime(visit_by_passcard.entered_at)
-        duration = get_duration(localized_time_entered_at) if not visit_by_passcard.leaved_at else \
-            get_duration(localized_time_entered_at, timezone.localtime(visit_by_passcard.leaved_at))
+    for this_passcard_visit in this_passcard_visits:
+        duration = this_passcard_visit.get_duration()
 
-        this_passcard_all_visits_formatted.append(
+        this_passcard_visits_formatted.append(
             {
-                "entered_at": localized_time_entered_at,
-                "duration": format_duration(duration),
+                "entered_at": localtime(this_passcard_visit.entered_at),
+                "duration": this_passcard_visit.format_duration(duration),
                 "is_strange": (duration // 3600) > 0,
             }
         )
 
     context = {
         "passcard": passcard,
-        "this_passcard_visits": this_passcard_all_visits_formatted,
+        "this_passcard_visits": this_passcard_visits_formatted,
     }
     return render(request, 'passcard_info.html', context)

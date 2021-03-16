@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.timezone import localtime, now
 
 
 class Passcard(models.Model):
@@ -18,6 +19,28 @@ class Visit(models.Model):
     passcard = models.ForeignKey(Passcard)
     entered_at = models.DateTimeField()
     leaved_at = models.DateTimeField(null=True)
+
+    def get_duration(self):
+        """Getting duration of the visit.
+
+        :return: duration in seconds
+        """
+
+        return (now() - localtime(self.entered_at)).total_seconds() if not self.leaved_at \
+            else (self.leaved_at - self.entered_at).total_seconds()
+
+    @staticmethod
+    def format_duration(total_seconds):
+        """
+        Formatting duration for print, given a total number of seconds.
+        :param total_seconds: number of seconds
+        :return: timedelta in formatted form
+        """
+
+        hours, remainder = divmod(total_seconds, 3600)
+        minutes, seconds = divmod(remainder, 60)
+
+        return f"{int(hours):02}:{int(minutes):02}:{int(seconds):02}"
 
     def __str__(self):
         return "{user} entered at {entered} {left}".format(
