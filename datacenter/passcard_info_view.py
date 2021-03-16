@@ -7,8 +7,8 @@ from datacenter.models import Passcard, Visit
 def passcard_info_view(request, passcode):
     passcard = Passcard.objects.filter(passcode=passcode)
     this_passcard_visits = Visit.objects.filter(passcard=passcard)
-    this_passcard_visits_formatted = list()
 
+    this_passcard_visits_formatted = list()
     for this_passcard_visit in this_passcard_visits:
         duration = this_passcard_visit.get_duration()
 
