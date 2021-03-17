@@ -17,7 +17,7 @@ def storage_information_view(request):
                 "who_entered": active_visit.passcard,
                 "entered_at": localtime(active_visit.entered_at),
                 "duration": active_visit.format_duration(duration),
-                "is_strange": (duration // 3600) > 0,
+                "is_strange": active_visit.is_strange(duration),
             }
         )
 

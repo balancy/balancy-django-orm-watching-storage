@@ -42,6 +42,16 @@ class Visit(models.Model):
 
         return f"{int(hours):02}:{int(minutes):02}:{int(seconds):02}"
 
+    @staticmethod
+    def is_strange(total_seconds):
+        """Checks if the visit was more than one hour.
+
+        :param total_seconds: number of seconds
+        :return: is visit strange or not
+        """
+
+        return (total_seconds // 3600) > 0
+
     def __str__(self):
         return "{user} entered at {entered} {left}".format(
             user=self.passcard.owner_name,

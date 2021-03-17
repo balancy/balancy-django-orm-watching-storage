@@ -16,7 +16,7 @@ def passcard_info_view(request, passcode):
             {
                 "entered_at": localtime(this_passcard_visit.entered_at),
                 "duration": this_passcard_visit.format_duration(duration),
-                "is_strange": (duration // 3600) > 0,
+                "is_strange": this_passcard_visit.is_strange(duration),
             }
         )
 
