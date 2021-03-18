@@ -1,9 +1,17 @@
 import os
 
-from config import DB
+from dotenv import load_dotenv
+load_dotenv()
 
 DATABASES = {
-    'default': DB,
+    'default': {
+        'ENGINE': os.getenv('ENGINE'),
+        'HOST': os.getenv('HOST'),
+        'PORT': os.getenv('PORT'),
+        'NAME': os.getenv('NAME'),
+        'USER': os.getenv('USER'),
+        'PASSWORD': os.getenv('PASSWORD'),
+    }
 }
 
 INSTALLED_APPS = ['datacenter']
