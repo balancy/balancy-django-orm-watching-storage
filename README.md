@@ -26,9 +26,21 @@ env\scripts\activate
 ```
 pip install -r requirements.txt
 ```
-5. Run the script by command:
+5. Rename file `.env.example` to `.env` and initialize your propre variables to initialize a database
 ```console
-python main.py
+ALLOWED_HOSTS = 127.0.0.1,localhost,your_database_host
+DEBUG = True
+ENGINE = 'django.db.backends.postgresql_psycopg2'
+HOST = your_database_host
+NAME = your_database_name
+PASSWORD = your_database_password
+PORT = your_database_port
+USER = your_database_user
+```
+Those environmental variables are necessary for correct work of application. Some variables are already initialized by default. 
+6. Run the script by command:
+```console
+python manage.py runserver
 ```
 The app will be accessible via link `http://127.0.0.1:8000/` 
 
