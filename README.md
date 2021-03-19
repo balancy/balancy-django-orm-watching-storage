@@ -38,6 +38,7 @@ PORT = your_database_port
 USER = your_database_user
 ```
 Those environmental variables are necessary for correct work of application. Some variables are already initialized by default. 
+
 6. Run the script by command:
 ```console
 python manage.py runserver
